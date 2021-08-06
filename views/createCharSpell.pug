@@ -1,0 +1,38 @@
+extends base
+include _navItem
+
+block content 
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('/me', 'My Account', '025-parchment')
+          +navItem('/character-list', 'Characters', '059-warrior')
+          +navItem('/spell-list', 'Spells', '016-magician hat')
+          +navItem('#', 'Logout', '032-skull', 'side-nav--logout')
+
+        - if (user.role==='admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/create-character', 'Create Character', '010-helmet')
+              +navItem('/create-spell', 'Create Spell', '009-sceptre')
+              +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician', 'side-nav--active')
+              +navItem('#', 'Monster List', '060-goblin')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Add Spell to Character
+          form.form.form-add-spell-character
+            .form__group
+              label.form__label(for='character') 🧙 Character
+              select#character.form__input(type='text', required)
+                each character in characters
+                  option= `${character._id}: ${character.name}`
+            .form__group
+              label.form__label(for='spell') 💫 Spell
+              select#spell.form__input(type='text', required)
+                each spell in spells
+                  option= `${spell._id}: ${spell.name}`
+            .form__group.right
+                button.btn.btn--small.btn--green Add

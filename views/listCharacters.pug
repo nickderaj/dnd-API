@@ -1,0 +1,114 @@
+extends base
+include _navItem
+
+mixin querySort(queryStr, val)
+  if (!queryStr)
+    option= val
+  if (queryStr)
+    option(selected='selected')= val
+
+  
+block content 
+  style.
+    #search {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd; 
+    margin-bottom: 12px;
+    }
+    ::-webkit-input-placeholder { 
+    color: #bdc3c7;
+    }
+    ::-moz-placeholder { 
+    color: #bdc3c7;
+    }
+    :-ms-input-placeholder { 
+    color: #bdc3c7;
+    }
+    #charTable {
+    border-collapse: collapse;
+    width: 100%; 
+    border: 1px solid #ddd;
+    font-size: 18px; 
+    }
+    #charTable th, #charTable td {
+    text-align: center;
+    padding: 12px;
+    }
+    #charTable td a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 600
+    }
+    #charTable td a:hover {
+    text-decoration: none;
+    color: #af260d;
+    }
+    #charTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+    #charTable tr.tableheader {
+    background: linear-gradient(to right bottom,#be3725,#af260d);
+    color: white;
+    }
+    .center {
+      margin: auto;
+    }
+    #charTable th:first-child, #charTable td:first-child{
+      text-align: left;
+    }
+    #charTable th:last-child, #charTable td:last-child{
+      text-align: right;
+    }
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('/me', 'My Account', '025-parchment')
+          +navItem('/character-list', 'Characters', '059-warrior', 'side-nav--active')
+          +navItem('/spell-list', 'Spells', '016-magician hat')
+          +navItem('#', 'Logout', '032-skull', 'side-nav--logout')
+
+        - if (user.role==='admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/create-character', 'Create Character', '010-helmet')
+              +navItem('/create-spell', 'Create Spell', '009-sceptre')
+              +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician')
+              +navItem('#', 'Monster List', '060-goblin')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Character List
+          form.form.form-character-search
+            label.form__label(for='search') 👁‍🗨 Search
+            input#search(type='text' placeholder='Search by Character Name..')
+            .grid__three
+              .form__group
+                label.form__label(for='sortBy') 🌠 Sort By
+                select#sortBy.form__input(type='text', required)
+                  +querySort(query.sort==='name', 'Name')
+                  +querySort(query.sort==='level', 'Level')
+              .form__group
+                label.form__label(for='perPage') 💫 Per Page
+                select#perPage.form__input(type='text', required)
+                  +querySort(query.limit==='20', '20')
+                  +querySort(query.limit==='50', '50')
+                  +querySort(query.limit==='100', '100')
+                  +querySort(query.limit==='9999', '9999')
+              .form__group.center
+                button.btn.btn--small.btn--green Search
+
+          table#charTable
+            tr.tableheader
+              th(style='width:60%;') Character
+              th(style='width:35%;') Class
+              th(style='width:15%;') Lvl
+            each character in characters  
+              tr
+                td
+                  a(href=`/character/${character.slug}`)= character.name
+                td= character.class.name
+                td= character.level

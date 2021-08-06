@@ -1,0 +1,107 @@
+extends base
+include _navItem
+
+mixin querySort(queryStr, val)
+  if (!queryStr)
+    option= val
+  if (queryStr)
+    option(selected='selected')= val
+
+  
+block content 
+  style.
+    #search {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd; 
+    margin-bottom: 12px;
+    }
+    ::-webkit-input-placeholder { 
+    color: #bdc3c7;
+    }
+    ::-moz-placeholder { 
+    color: #bdc3c7;
+    }
+    :-ms-input-placeholder { 
+    color: #bdc3c7;
+    }
+    #spellTable {
+    border-collapse: collapse;
+    width: 100%; 
+    border: 1px solid #ddd;
+    font-size: 18px; 
+    }
+    #spellTable th, #spellTable td {
+    text-align: left;
+    padding: 12px;
+    }
+    #spellTable td a {
+    text-decoration: none;
+    color: inherit;
+    }
+    #spellTable td a:hover {
+    text-decoration: none;
+    color: #af260d;
+    }
+    #spellTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+    #spellTable tr.tableheader {
+    background: linear-gradient(to right bottom,#be3725,#af260d);
+    color: white;
+    }
+    .center {
+      margin: auto;
+    }
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('/me', 'My Account', '025-parchment')
+          +navItem('/character-list', 'Characters', '059-warrior')
+          +navItem('/spell-list', 'Spells', '016-magician hat', 'side-nav--active')
+          +navItem('#', 'Logout', '032-skull', 'side-nav--logout')
+
+        - if (user.role==='admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/create-character', 'Create Character', '010-helmet')
+              +navItem('/create-spell', 'Create Spell', '009-sceptre')
+              +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician')
+              +navItem('#', 'Monster List', '060-goblin')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Spell List
+          form.form.form-spell-search
+            label.form__label(for='search') 👁‍🗨 Search
+            input#search(type='text' placeholder='Search by Spell Name..')
+            .grid__three
+              .form__group
+                label.form__label(for='sortBy') 🌠 Sort By
+                select#sortBy.form__input(type='text', required)
+                  +querySort(query.sort==='name', 'Name')
+                  +querySort(query.sort==='level', 'Level')
+              .form__group
+                label.form__label(for='perPage') 💫 Per Page
+                select#perPage.form__input(type='text', required)
+                  +querySort(query.limit==='20', '20')
+                  +querySort(query.limit==='50', '50')
+                  +querySort(query.limit==='100', '100')
+                  +querySort(query.limit==='9999', '9999')
+              .form__group.center
+                button.btn.btn--small.btn--green Search
+
+          table#spellTable
+            tr.tableheader
+              th(style='width:60%;') Spell
+              th(style='width:30%;') Level
+              th(style='width:10%;')
+            each spell in spells  
+              tr
+                td= spell.name
+                td= spell.level[0]
+                td
+                  a(href=`/spell/${spell.id}`) More

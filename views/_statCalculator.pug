@@ -1,0 +1,17 @@
+mixin statCalculator(stat)
+  if(stat='1')
+
+
+mixin characterCard(character)
+  figure.card
+    .card__title-box(class=`${character.class.name}-bg`)
+      h2.card__title= character.name
+    .card__details
+      .card__detail-box
+        h6.card__detail.card__detail--bold(class=`${character.class.name}`)= character.class.name
+      .card__detail-box
+        h6.card__detail= `${character.race}`
+      .card__detail-box
+        h6.card__detail.card__detail--bold= `Level ${character.level}`
+      a.card__link(class=`${character.class.name}-li` href=`/character?${character.slug}`)
+        span See More

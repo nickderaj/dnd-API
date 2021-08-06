@@ -1,0 +1,5 @@
+mixin navItem(link, text, icon, classInfo)
+  li(class=`${classInfo}`)
+    a(href=`${link}`)
+      img(src=`/img/icons/${icon}.svg`)
+      | #{text}

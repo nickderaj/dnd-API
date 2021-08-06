@@ -1,0 +1,20 @@
+extends base
+include _characterCard
+
+block append head 
+  link(rel='stylesheet' href='/css/overviewStyle.css')
+
+block content
+  main.main 
+    .container 
+
+      each character in characters
+        - if (character.npc=== false)
+          +characterCard(character)
+      
+      figure.card
+          .card__title-box
+            h2.card__title= "Other Characters"
+          .card__details
+            a.card__link(href='/npcs')
+              span See More

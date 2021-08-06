@@ -1,0 +1,239 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.7;
+  font-family: 'MedievalSharp', sans-serif;
+  color: #555;
+  min-height: 100vh;
+  background-color: rgb(0, 0, 0);
+}
+
+.main {
+  background-image: url('/img/overviewbackground.jpg');
+  background-size: cover;
+}
+
+.container {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.cards-container {
+  margin-top: 8rem;
+}
+
+.card {
+  background: rgb(255, 255, 255);
+  box-shadow: 0 2rem 6rem 1rem rgba(0, 0, 0, 0.15);
+  margin-bottom: 2rem;
+  transform: skewX(-10deg);
+  display: flex;
+  transition: all 0.5s;
+}
+
+.card__title-box {
+  background: linear-gradient(to left, #e15d5d, #e36e00);
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+}
+
+.card__title {
+  font-family: 'Megrim', sans-serif;
+  color: rgb(24, 24, 24);
+  font-size: 3.25rem;
+  transform: skewX(10deg);
+}
+
+.card__details {
+  display: flex;
+  padding: 0;
+}
+
+.card__detail-box {
+  align-self: stretch;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+}
+
+.card__detail-box:last-child {
+  border: none;
+}
+
+.card__detail {
+  font-weight: 600;
+  font-size: 1.9rem;
+  transform: skewX(10deg);
+  padding: 1.75rem;
+}
+
+.card__link:link,
+.card__link:visited {
+  flex: 0 0 auto;
+  background-color: #e15d5d;
+  color: rgb(24, 24, 24);
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 2.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.card__link span {
+  transform: skewX(10deg);
+}
+
+.card:hover {
+  transform: skewX(-10deg) scale(1.08);
+  box-shadow: 0 3rem 8rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.Barbarian {
+  color: #c41e3a;
+}
+
+.Barbarian-bg,
+.Barbarian-li:link,
+.Barbarian-li:visited {
+  background: #c41e3a;
+  background-color: #c41e3a;
+}
+
+.Bard {
+  color: #a330c9;
+}
+
+.Bard-bg,
+.Bard-li:link,
+.Bard-li:visited {
+  background: #a330c9;
+  background-color: #a330c9;
+}
+
+.Cleric {
+  color: rgb(170, 170, 170);
+}
+
+.Cleric-bg,
+.Cleric-li:link,
+.Cleric-li:visited {
+  background: #ddd;
+  background-color: #ddd;
+}
+
+.Druid {
+  color: #ff7c0a;
+}
+
+.Druid-bg,
+.Druid-li:link,
+.Druid-li:visited {
+  background: #ff7c0a;
+  background-color: #ff7c0a;
+}
+
+.Fighter {
+  color: #c69b6d;
+}
+
+.Fighter-bg,
+.Fighter-li:link,
+.Fighter-li:visited {
+  background: #c69b6d;
+  background-color: #c69b6d;
+}
+
+.Monk {
+  color: #00ff98;
+}
+
+.Monk-bg,
+.Monk-li:link,
+.Monk-li:visited {
+  background: #00ff98;
+  background-color: #00ff98;
+}
+
+.Paladin {
+  color: #f48cba;
+}
+
+.Paladin-bg,
+.Paladin-li:link,
+.Paladin-li:visited {
+  background: #f48cba;
+  background-color: #f48cba;
+}
+
+.Ranger {
+  color: #aad372;
+}
+
+.Ranger-bg,
+.Ranger-li:link,
+.Ranger-li:visited {
+  background: #aad372;
+  background-color: #aad372;
+}
+
+.Rogue {
+  color: #fff468;
+}
+
+.Rogue-bg,
+.Rogue-li:link,
+.Rogue-li:visited {
+  background: #fff468;
+  background-color: #fff468;
+}
+
+.Sorcerer {
+  color: #3fc7eb;
+}
+
+.Sorcerer-bg,
+.Sorcerer-li:link,
+.Sorcerer-li:visited {
+  background: #3fc7eb;
+  background-color: #3fc7eb;
+}
+
+.Warlock {
+  color: #8788ee;
+}
+
+.Warlock-bg,
+.Warlock-li:link,
+.Warlock-li:visited {
+  background: #8788ee;
+  background-color: #8788ee;
+}
+
+.Wizard {
+  color: #0070dd;
+}
+
+.Wizard-bg,
+.Wizard-li:link,
+.Wizard-li:visited {
+  background: #0070dd;
+  background-color: #0070dd;
+}

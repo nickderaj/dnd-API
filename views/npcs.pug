@@ -1,0 +1,18 @@
+extends base
+include _characterCard
+
+block append head 
+  link(rel='stylesheet' href='/css/overviewStyle.css')
+
+block content
+  style.
+    .main {
+      background-image: url('/img/npcbackground.jpg');
+      background-size: cover;
+      };
+  main.main 
+    .container 
+
+      each character in characters
+        - if (character.npc=== true)
+          +characterCard(character)

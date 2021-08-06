@@ -1,0 +1,96 @@
+extends base
+include _navItem
+
+block content 
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('/me', 'My Account', '025-parchment')
+          +navItem('/character-list', 'Characters', '059-warrior')
+          +navItem('/spell-list', 'Spells', '016-magician hat')
+          +navItem('#', 'Logout', '032-skull', 'side-nav--logout')
+
+        - if (user.role==='admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/create-character', 'Create Character', '010-helmet', 'side-nav--active')
+              +navItem('/create-spell', 'Create Spell', '009-sceptre')
+              +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician')
+              +navItem('#', 'Monster List', '060-goblin')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Create Character
+          form.form.form-create-character
+            .form__group
+              label.form__label(for='charname') Name
+              input#charname.form__input(type='text', placeholder='Illidan Stormrage', required)
+            .form__group
+              label.form__label(for='race') Race
+              input#race.form__input(type='text', placeholder='Elf', required)
+            .grid__two
+              .form__group
+                label.form__label(for='charclass') 🧙 Class
+                select#charclass.form__input(type='text', required)
+                  option='Barbarian'
+                  option='Bard'
+                  option='Cleric'
+                  option(selected='selected')='Druid'
+                  option='Fighter'
+                  option='Monk'
+                  option='Paladin'
+                  option='Ranger'
+                  option='Rogue'
+                  option='Sorcerer'
+                  option='Warlock'
+                  option='Wizard'
+              .form__group
+                label.form__label(for='health') ❤️ Max Health
+                input#health.form__input(type='number', placeholder='1-500', min='1', max='500', required)
+            .grid__three
+              .form__group
+                label.form__label(for='level') ⭐ Level
+                input#level.form__input(type='number', placeholder='1-20', min='1', max='20', required)
+              .form__group
+                label.form__label(for='ac') 🛡️ AC
+                input#ac.form__input(type='number', placeholder='1-50', min='1', max='50', required)
+              .form__group
+                label.form__label(for='init') 🚀 Initiative (DEX)
+                input#init.form__input(type='number', placeholder='-5-60', min='-5', max='60', required)
+            .grid__three
+              .form__group
+                label.form__label(for='strength') 💪 Strength
+                input#strength.form__input(type='number', placeholder='1-30', min='1', max='30', required)
+              .form__group
+                label.form__label(for='dexterity') 🏹 Dexterity
+                input#dexterity.form__input(type='number', placeholder='1-30', min='1', max='30',required)
+              .form__group
+                label.form__label(for='constitution') 💞 Constitution
+                input#constitution.form__input(type='number', placeholder='1-30', min='1', max='30',required)
+            .grid__three
+              .form__group
+                label.form__label(for='intelligence') 🧠 Intelligence
+                input#intelligence.form__input(type='number', placeholder='1-30', min='1', max='30',required)
+              .form__group
+                label.form__label(for='wisdom') 📚 Wisdom
+                input#wisdom.form__input(type='number', placeholder='1-30', min='1', max='30',required)
+              .form__group
+                label.form__label(for='charisma') 💬 Charisma
+                input#charisma.form__input(type='number', placeholder='1-30', min='1', max='30',required)
+
+            h6.heading-secondary.ma-bt-md Proficiencies
+            - var proficiencyTypes = ['acrobatics','animal handling','arcana','athletics','deception','history','insight','intimidation','investigation','medicine','nature','perception','performance','persuasion','religion','sleight of hand','stealth','survival']
+            .grid__three
+              each proficiency in proficiencyTypes
+                .checkbox
+                  input(type='checkbox' id=`${proficiency}`)
+                  label.checkbox-text(for='proficiency')= `${proficiency[0].toUpperCase()}${proficiency.toLowerCase().slice(1)}`
+            .line &nbsp;
+            .grid__two
+              .checkbox
+                  input#npc(type='checkbox')
+                  label.checkbox-text(for='npc')= `Is An NPC`
+              .form__group.right
+                button.btn.btn--small.btn--green Create

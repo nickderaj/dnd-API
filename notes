@@ -1,0 +1,12 @@
+Between levels 1–4, PB is +2
+Between levels 5–8, PB is +3
+Between levels 9–12, PB is +4
+Between levels 13–16, PB is +5
+Between levels 16–20, PB is +6
+
+For Wizards, Fighters, and Rogues your spellcasting ability modifier is Intelligence.
+For Clerics, Druids, Rangers, and Monks  your SAM is Wisdom.
+For Bards, Paladins, Sorcerers, and Warlocks your SAM is Charisma.
+
+When you cast a spell, your spell attack modifier is:
+Spellcasting Ability Modifier (SAM) + Proficiency Bonus (Prof. or PB)

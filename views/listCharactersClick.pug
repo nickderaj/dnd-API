@@ -1,0 +1,366 @@
+extends base
+include _navItem
+
+block content 
+  style.
+    #characterInput {
+    width: 100%;
+    font-size: 16px;
+    padding: 6px 10px 6px 20px;
+    border: 1px solid #ddd; 
+    margin-bottom: 12px;
+    }
+    #characterTable {
+    border-collapse: collapse;
+    width: 100%; 
+    border: 1px solid #ddd;
+    font-size: 18px; 
+    }
+    #characterTable th, #characterTable td {
+    text-align: center;
+    padding: 6px;
+    }
+    #characterTable tr a {
+    text-decoration: none;
+    color: inherit;
+    }
+    #characterTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+    #characterTable tr.tableheader {
+    background: linear-gradient(to right bottom,#be3725,#af260d);
+    color: white;
+    }
+    #featuresTable {
+    border-collapse: collapse;
+    width: 100%; 
+    border: 1px solid #ddd;
+    font-size: 15px; 
+    }
+    #featuresTable th, #featuresTable td {
+    text-align: center;
+    padding: 2px;
+    }
+    #featuresTable tr a {
+    text-decoration: none;
+    color: inherit;
+    }
+    #featuresTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+    #featuresTable tr.tableheader {
+    background: linear-gradient(to right bottom,#be3725,#af260d);
+    color: white;
+    }
+    p {
+      font-size: 14px
+    }
+    h6, h6 a {
+      font-size: 18px;
+      text-decoration: none;
+      color: inherit;
+    }
+    h6 a:hover {
+      color: #af260d;
+    }
+    button a{
+      text-decoration: none;
+      color: inherit;
+    }
+    .grid__two, .grid__three {
+      padding-top: 1rem;
+      grid-gap: 1rem;
+    }
+    .grid__four {
+      grid-gap: 0.5rem;
+      grid-template-columns: 2fr 1fr 2fr 1fr
+    }
+    .grid__buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-gap: 1.5rem;
+      padding: 0 4rem
+    }
+    .line-thin {
+    margin: 2rem 0;
+    width: 100%;
+    height: 1px;
+    background-color: #e0e0e0;
+    }
+    .thicc {
+      font-weight: 600;
+    }
+    .user-view__form-container{
+      padding: 0 4rem
+    }
+    #characterTable th .left {
+      text-align: left;
+    }
+    .btn--red {
+    background-image: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    from(var(--tertiarycolor)),
+    to(var(--maincolor))
+    );
+    background-image: linear-gradient(
+    to right bottom,
+    var(--tertiarycolor),
+    var(--maincolor)
+    );
+    color: white;
+    }
+    .hidden {
+      display: none
+    }
+    .grid__two-long {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      grid-gap: 1rem;
+    }
+    #spellTable {
+    border-collapse: collapse;
+    width: 100%; 
+    border: 1px solid #ddd;
+    font-size: 15px; 
+    }
+    #spellTable th, #spellTable td {
+    text-align: center;
+    padding: 4px 14px;
+    }
+    #spellTable th:first-child, #spellTable td:first-child{
+      text-align: left;
+    }
+    #spellTable th:last-child, #spellTable td:last-child{
+      text-align: right;
+    }
+    #spellTable td a {
+    text-decoration: none;
+    color: inherit;
+    }
+    #spellTable td a:hover {
+    text-decoration: none;
+    color: #af260d;
+    }
+    #spellTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+    #spellTable tr.tableheader {
+    background: linear-gradient(to right bottom,#be3725,#af260d);
+    color: white;
+    }
+    .centerthisshit {
+      text-align: center;
+    }
+    .rightthisshit {
+      text-align: right; 
+    }
+    .leftthisshit {
+      text-align: left;
+    }
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('/me', 'My Account', '025-parchment')
+          +navItem('/character-list', 'Characters', '059-warrior','side-nav--active')
+          +navItem('/spell-list', 'Spells', '016-magician hat')
+          +navItem('#', 'Logout', '032-skull', 'side-nav--logout')
+        - if (user.role==='admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/create-character', 'Create Character', '010-helmet')
+              +navItem('/create-spell', 'Create Spell', '009-sceptre')
+              +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician')
+              +navItem('#', 'Monster List', '060-goblin')
+      .user-view__content.character-content-page
+        .grid__buttons
+          button.btn.btn--small.btn--red.btn-back
+            a(href=`/character-list`) 🦉 Back
+          button.btn.btn--small.btn--green.btn-overview Overview
+          button.btn.btn--small.btn--green.btn-spells Spells
+          button.btn.btn--small.btn--green.btn-inventory Inventory 
+          button.btn.btn--small.btn--green.btn-features Features
+
+        .user-view__form-container
+          #overview
+            br
+            h2.heading-secondary.ma-bt-sl= `${character.name}, the ${character.race}`
+            br
+            .grid__three
+              h2 🧙‍♂️ Class 
+              h2 ❤️ Max Health
+              h2 🎲 Prof. Bonus
+              p= character.class.name
+              p= `${character.health} (${character.class.hitdice})`
+              p= `${character.stats.proficiencyBonus}`
+            .grid__three
+              h2 ⭐ Level 
+              h2 🛡️ AC
+              h2 🚀 Initiative
+              p= character.level
+              p= character.ac
+              p= character.initiative
+              h2 💪 Strength 
+              h2 🏹 Dexterity
+              h2 💞 Constitution
+              p= `${character.strength} (${character.stats.strengthMod})`
+              p= `${character.dexterity} (${character.stats.dexterityMod})`
+              p= `${character.constitution} (${character.stats.constitutionMod})`
+              h2 🧠 Intelligence 
+              h2 📚 Wisdom
+              h2 💬 Charisma
+              p= `${character.intelligence} (${character.stats.intelligenceMod})`
+              p= `${character.wisdom} (${character.stats.wisdomMod})`
+              p= `${character.charisma} (${character.stats.charismaMod})`
+            br
+            .grid__two-long
+              h2 👼 Saving Throws:
+              p= `${character.class.savingthrows} (Add prof. bonus to saving throws)`
+            .line-thin &nbsp;
+            - var proficiencyTypes = ['acrobatics','animal  handling','arcana','athletics','deception','history','insight','intimidation','investigation','medicine','nature','perception','performance','persuasion','religion','sleight of hand','stealth','survival']
+            h2.heading-secondary-smaller.ma-bt-sl Proficiencies
+            .grid__four
+              each proficiency in proficiencyTypes 
+                h2.rightthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
+                p.centerthisshit= character.stats[proficiency.split(' ').join('')] > 0 ? `+${character.stats[proficiency.split(' ').join('')]}` : character.stats[proficiency.split(' ').join('')]
+            .line-thin &nbsp;
+            - if (character.class.spellslots[0].slots)
+              h2.heading-secondary-smaller.ma-bt-sl Spellcasting 
+              h2= `🧙‍♂️ Spell Ability Modifier: ${character.class.sam.toUpperCase()}`
+              br
+              table#characterTable
+                tr.tableheader
+                  th(style='width:10%;') Lvl
+                  th(style='width:9%;') C
+                  th(style='width:9%;') 1st
+                  th(style='width:9%;') 2nd
+                  th(style='width:9%;') 3rd
+                  th(style='width:9%;') 4th
+                  th(style='width:9%;') 5th
+                  th(style='width:9%;') 6th
+                  th(style='width:9%;') 7th
+                  th(style='width:9%;') 8th
+                  th(style='width:9%;') 9th
+                tr
+                  td.thicc= character.level
+                  td= character.class.spellslots[0].cantrips[character.level - 1]
+                  td= character.class.spellslots[0].slots["1st"][character.level - 1]
+                  td= character.class.spellslots[0].slots["2nd"][character.level - 1]
+                  td= character.class.spellslots[0].slots["3rd"][character.level - 1]
+                  td= character.class.spellslots[0].slots["4th"][character.level - 1]
+                  td= character.class.spellslots[0].slots["5th"][character.level - 1]
+                  td= character.class.spellslots[0].slots["6th"][character.level - 1]
+                  td= character.class.spellslots[0].slots["7th"][character.level - 1]
+                  td= character.class.spellslots[0].slots["8th"][character.level - 1]
+                  td= character.class.spellslots[0].slots["9th"][character.level - 1]
+            - if(character.class.spellslots[0].rages[1])
+              h2.heading-secondary-smaller.ma-bt-sl Rages 
+              h2= `😡 Current Rage Damage: ${character.class.spellslots[0].ragedamage[character.level - 1]}`
+              br
+              table#characterTable
+                tr.tableheader
+                  th(style='width:20%;') Lvl
+                  th(style='width:40%;') Rages
+                  th(style='width:40%;') Rage Damage
+                tr
+                  td.thicc= character.level
+                  td= character.class.spellslots[0].rages[character.level - 1]
+                  td= character.class.spellslots[0].ragedamage[character.level - 1]
+            - if(character.class.spellslots[0].invocations[1])
+              br
+              h2= `😈 Number of Invocations: ${character.class.spellslots[0].invocations[character.level - 1]}`      
+
+          #spells.hidden
+            br
+            h2.heading-secondary.ma-bt-sl Spellcasting 
+            h2= `🧙‍♂️ Spell Ability Modifier: ${character.class.sam.toUpperCase()}`
+            br
+            table#spellTable
+              tr.tableheader
+                th(style='width:40%;') Spell
+                th(style='width:30%;') Cast Time
+                th(style='width:20%;') Range
+                th(style='width:20%;') Conc
+                //- th(style='width:50%;') Description
+                th(style='width:20%;') Level
+
+              each spell in character.spells.sort(function(a,b){return a.level.toLowerCase()>b.level.toLowerCase() ? 1 : -1}).sort(function(a,b){return a.level.toLowerCase()>b.level.toLowerCase() ? 1 : -1}).sort(function(a,b){return a.level==="Cantrip"? -1 : 1})
+                tr
+                  td.thicc
+                    a(href=`/spell/${spell._id}`)= spell.name
+                  //- td= `${spell.desc.slice(0,30)}...`
+                  td= spell.castingtime 
+                  td= spell.range 
+                  td= spell.concentration
+                  td= `${spell.level.split('level')[0]}${spell.level[3]==='-'?'lvl':''}`
+
+          #inventory.hidden
+            br
+            .grid__two
+              h2.heading-secondary.ma-bt-sl Inventory 
+              h2.rightthisshit= `💰 Gold: ${character.inventory.Gold}`
+            table#characterTable
+              tr.tableheader
+                th(style='width:40%;') Item
+                th(style='width:50%;') Description
+                th(style='width:10%;') Qty
+              - delete character.inventory.Gold
+              each item, name in character.inventory
+                tr
+                  td.thicc= name
+                  td= item.split('_')[0]
+                  td= item.split('_')[1]
+
+          #features.hidden
+            br
+            h2.heading-secondary.ma-bt-sl Features 
+            table#featuresTable
+              tr.tableheader
+                th(style='width:10%;') Lvl
+                th.left(style='width:90%;') Features
+              - var m = 0
+              while m<20
+                tr
+                  td.thicc= m+1
+                  td= character.class.featureLevel[m]
+                - m++
+            br
+            each feature, name in character.class.features
+              h2= name 
+              each line in feature.split('/n')
+                p #{line}
+                br
+
+
+
+//- table#characterTable
+//-   tr.tableheader
+//-     th(style='width:10%;') Lvl
+//-     th(style='width:9%;') C
+//-     th(style='width:9%;') 1st
+//-     th(style='width:9%;') 2nd
+//-     th(style='width:9%;') 3rd
+//-     th(style='width:9%;') 4th
+//-     th(style='width:9%;') 5th
+//-     th(style='width:9%;') 6th
+//-     th(style='width:9%;') 7th
+//-     th(style='width:9%;') 8th
+//-     th(style='width:9%;') 9th
+//-   - var n = 0
+//-   while n<20
+//-     tr
+//-       td.thicc= n+1
+//-       td= character.class.spellslots[0].cantrips[n]
+//-       td= character.class.spellslots[0].slots["1st"][n]
+//-       td= character.class.spellslots[0].slots["2nd"][n]
+//-       td= character.class.spellslots[0].slots["3rd"][n]
+//-       td= character.class.spellslots[0].slots["4th"][n]
+//-       td= character.class.spellslots[0].slots["5th"][n]
+//-       td= character.class.spellslots[0].slots["6th"][n]
+//-       td= character.class.spellslots[0].slots["7th"][n]
+//-       td= character.class.spellslots[0].slots["8th"][n]
+//-       td= character.class.spellslots[0].slots["9th"][n]
+//-     - n++

@@ -1,0 +1,125 @@
+extends base
+
+block append head 
+
+//- mixin overviewBox(icon, label, text)
+//-   .overview-box__detail
+//-     svg.overview-box__icon
+//-       use(xlink:href=`/img/icons.svg#icon-${icon}`)
+//-     span.overview-box__label= label
+//-     span.overview-box__text= text
+
+//- +overviewBox('trending-up', 'Difficulty', tour.difficulty)
+
+block content
+  .maincontainer
+    .container
+      figure.product.left
+        a.product__back(href='/overview')  Back 
+        .product__hero(class='{%COLORCLASS%}')
+          img(src='{%BACKGROUND%}')
+        h2.product__name(class='{%COLORCLASS%}') {%CHARNAME%}
+        .product__details
+          p
+            span.emoji-left &#x2764;&#xFE0F;
+            |  HP: {%MAXHEALTH%}
+          p
+            span.emoji-left &#x2B50;
+            |  {%LEVEL%}
+          p
+            span.emoji-left &#x1F6E1;&#xFE0F;
+            |  AC: {%AC%}
+          p
+            span.emoji-left &#x1F680;
+            |  INIT: {%INIT%}
+        a.product__link(href='#' class='{%COLORCLASS%}')
+          span.emoji-left &#x1F4D6;
+          span Spell Book
+        .product__details
+          p
+            span.emoji-left &#x1F4AA;
+            |  STR: {%STRENGTH%}
+            |               ({%STRENGTHMOD%})
+          p
+            span.emoji-left &#x1F3C3;&zwj;&male;&#xFE0F;
+            |  DEX: {%DEXTERITY%}
+            |               ({%DEXTERITYMOD%})
+          p
+            span.emoji-left &#x1FA79;
+            |  CON: {%CONSTITUTION%}
+            |               ({%CONSTITUTIONMOD%})
+          p
+            span.emoji-left &#x1F9E0;
+            |  INT: {%INTELLIGENCE%}
+            |               ({%INTELLIGENCEMOD%})
+          p
+            span.emoji-left &#x1F989;
+            |  WIS: {%WISDOM%} ({%WISDOMMOD%})
+          p
+            span.emoji-left &#x1F4AC;
+            |  CHA: {%CHARISMA%}
+            |               ({%CHARISMAMOD%})
+        .proficiencies__bonus(class='{%COLORCLASS%}')
+          span &#x1F3B2; Proficiency Bonus: {%PROFICIENCYBONUS%}
+        .proficiencies
+          p
+            span.emoji-left &#x1F938;&zwj;&male;&#xFE0F;
+            | ACRO: {%ACROBATICS%}
+          p
+            span.emoji-left &#x1F40E;
+            | ANIM: {%ANIMALHANDLING%}
+          p
+            span.emoji-left &#x1F9DD;&zwj;&male;&#xFE0F;
+            | ARCA: {%ARCANA%}
+          p
+            span.emoji-left &#x1F3C3;&zwj;&male;&#xFE0F;
+            | ATHL: {%ATHLETICS%}
+          p
+            span.emoji-left &#x1F925;
+            | DECE: {%DECEPTION%}
+          p
+            span.emoji-left &#x1F4DC;
+            | HIST: {%HISTORY%}
+          p
+            span.emoji-left &#x1F50D;
+            | INSI: {%INSIGHT%}
+          p
+            span.emoji-left &#x1F621;
+            | INTI: {%INTIMIDATION%}
+          p
+            span.emoji-left &#x1F575;&#xFE0F;&zwj;&male;&#xFE0F;
+            | INVE: {%INVESTIGATION%}
+          p
+            span.emoji-left &#x1F489;
+            | MEDI: {%MEDICINE%}
+          p
+            span.emoji-left &#x1F333;
+            | NATU: {%NATURE%}
+          p
+            span.emoji-left &#x1F441;&zwj;&#x1F5E8;
+            | PERC: {%PERCEPTION%}
+          p
+            span.emoji-left &#x1F941;
+            | PERF: {%PERFORMANCE%}
+          p
+            span.emoji-left &#x1F4E3;
+            | PERS: {%PERSUASION%}
+          p
+            span.emoji-left &#x1F4FF;
+            | RELI: {%RELIGION%}
+          p
+            span.emoji-left &#x1F4B0;
+            | SLEI: {%SLEIGHTOFHAND%}
+          p
+            span.emoji-left &#x1F431;&zwj;&#x1F464;
+            | STEA: {%STEALTH%}
+          p
+            span.emoji-left &#x26FA;
+            | SURV: {%SURVIVAL%}
+      figure.product.right
+        .proficiencies__bonus(class='{%COLORCLASS%}')
+          span  &#x1F4B0; Gold: {%GOLDCOINS%}
+        .product__description
+          p {%DESCRIPTION%}
+        .proficiencies__bonus(class='{%COLORCLASS%}')
+          span  Skills 

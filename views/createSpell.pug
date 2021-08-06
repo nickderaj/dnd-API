@@ -1,0 +1,58 @@
+extends base
+include _navItem
+
+block content 
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('/me', 'My Account', '025-parchment')
+          +navItem('/character-list', 'Characters', '059-warrior')
+          +navItem('/spell-list', 'Spells', '016-magician hat')
+          +navItem('#', 'Logout', '032-skull', 'side-nav--logout')
+
+        - if (user.role==='admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/create-character', 'Create Character', '010-helmet')
+              +navItem('/create-spell', 'Create Spell', '009-sceptre', 'side-nav--active')
+              +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician')
+              +navItem('#', 'Monster List', '060-goblin')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Create Spell
+          form.form.form-create-spell
+            .form__group
+              label.form__label(for='spellname') Name
+              input#spellname.form__input(type='text', placeholder='Antimagic Field', required)
+            .form__group
+              label.form__label(for='desc') 📜 Description
+              textarea#desc.form__input(type='textarea', placeholder='A 10-foot-radius invisible sphere of antimagic surrounds you.', required)
+            .form__group
+              label.form__label(for='level') ⭐ Level
+              input#level.form__input(type='text', placeholder='1-20', required)
+            .grid__two
+              .form__group
+                label.form__label(for='range') 🌠 Range
+                input#range.form__input(type='text', placeholder='150 feet / Touch', required)
+              .form__group
+                label.form__label(for='duration') ⏳ Duration
+                input#duration.form__input(type='text', placeholder='Instantaneous / 2 Rounds', required)
+            .grid__two.padbottom
+              label.form__label(for='concentration')= `👁‍🗨 Requires Concentration`
+              input.checkbox(type='checkbox' id=`concentration`)
+            .form__group
+              label.form__label(for='castingtime') ⏱ Cast Time
+              input#castingtime.form__input(type='text', placeholder='1 action / 1 bonus action', required)
+            h6.heading-secondary.ma-bt-md Classes
+            - var classTypes = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard']
+            .grid__three
+              each charclass in classTypes
+                .checkbox
+                  input(type='checkbox' id=`${charclass}`)
+                  label.checkbox-text(for='charclass')= `${charclass[0].toUpperCase()}${charclass.toLowerCase().slice(1)}`
+            .line &nbsp;
+            .form__group.right
+              button.btn.btn--small.btn--green Create

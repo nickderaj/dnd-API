@@ -1,0 +1,103 @@
+extends base
+include _navItem
+
+block content 
+  style.
+    #spellInput {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd; 
+    margin-bottom: 12px;
+    }
+    #spellTable {
+    border-collapse: collapse;
+    width: 100%; 
+    border: 1px solid #ddd;
+    font-size: 18px; 
+    }
+    #spellTable th, #spellTable td {
+    text-align: left;
+    padding: 12px;
+    }
+    #spellTable tr a {
+    text-decoration: none;
+    color: inherit;
+    }
+    #spellTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+    #spellTable tr.tableheader {
+    background: linear-gradient(to right bottom,#be3725,#af260d);
+    color: white;
+    }
+    p {
+    font-size: 14px;
+    }
+    .btn-borderless {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: white;
+    font-size: 18px;
+    padding: 0.5rem
+    }
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('/me', 'My Account', '025-parchment')
+          +navItem('/character-list', 'Characters', '059-warrior')
+          +navItem('/spell-list', 'Spells', '016-magician hat', 'side-nav--active')
+          +navItem('#', 'Logout', '032-skull', 'side-nav--logout')
+
+        - if (user.role==='admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/create-character', 'Create Character', '010-helmet')
+              +navItem('/create-spell', 'Create Spell', '009-sceptre')
+              +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician')
+              +navItem('#', 'Monster List', '060-goblin')
+
+      .user-view__content
+        .user-view__form-container.spell-specific
+          h2.heading-secondary.ma-bt-md= spell.name
+          table#spellTable
+            tr.tableheader
+              th(style='width:30%;')
+                button.btn-borderless(id='gobackbutton') 🦉 Back
+              th(style='width:70%;')
+            tr
+              td Name
+              td= spell.name
+            tr
+              td Level
+              td= spell.level
+            tr
+              td Range
+              td= spell.range
+            tr
+              td Duration
+              td= spell.duration
+            tr
+              td Cast Time
+              td= spell.castingtime
+            tr
+              td Concentration
+              td= spell.concentration
+            tr
+              td Classes
+              td= spell.class.join(', ')
+            - if (spell.higherlevel)
+              tr 
+                td Higher Level 
+                td= spell.higherlevel
+          br
+          h2.heading-secondary.ma-bt-md Description
+          each line in spell.desc.split('\n')
+              p #{line}
+              br
