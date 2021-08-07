@@ -14,7 +14,7 @@ block content
     border-collapse: collapse;
     width: 100%; 
     border: 1px solid #ddd;
-    font-size: 18px; 
+    font-size: 15px; 
     }
     #characterTable th, #characterTable td {
     text-align: center;
@@ -28,6 +28,30 @@ block content
     border-bottom: 1px solid #ddd;
     }
     #characterTable tr.tableheader {
+    background: linear-gradient(to right bottom,#be3725,#af260d);
+    color: white;
+    }
+    #itemTable {
+    border-collapse: collapse;
+    width: 100%; 
+    border: 1px solid #ddd;
+    font-size: 15px; 
+    }
+    #itemTable th, #itemTable td {
+    text-align: right;
+    padding: 6px;
+    }
+    #itemTable th:first-child, #itemTable td:first-child {
+      text-align: left
+    }
+    #itemTable tr a {
+    text-decoration: none;
+    color: inherit;
+    }
+    #itemTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+    #itemTable tr.tableheader {
     background: linear-gradient(to right bottom,#be3725,#af260d);
     color: white;
     }
@@ -93,9 +117,6 @@ block content
     .user-view__form-container{
       padding: 0 4rem
     }
-    #characterTable th .left {
-      text-align: left;
-    }
     .btn--red {
     background-image: -webkit-gradient(
     linear,
@@ -159,6 +180,9 @@ block content
     .leftthisshit {
       text-align: left;
     }
+    .justify {
+      text-align: justify
+    }
   main.main
     .user-view
       nav.user-view__menu
@@ -187,7 +211,8 @@ block content
         .user-view__form-container
           #overview
             br
-            h2.heading-secondary.ma-bt-sl= `${character.name}, the ${character.race}`
+            .grid__two
+              h2.heading-secondary.ma-bt-sl= `${character.name}, the ${character.race}`
             br
             .grid__three
               h2 🧙‍♂️ Class 
@@ -226,6 +251,10 @@ block content
               each proficiency in proficiencyTypes 
                 h2.rightthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
                 p.centerthisshit= character.stats[proficiency.split(' ').join('')] > 0 ? `+${character.stats[proficiency.split(' ').join('')]}` : character.stats[proficiency.split(' ').join('')]
+            br
+            h2 Equipment Proficiencies 
+            p= character.stats.gearproficiencies.split('Weapons: ')[0]
+            p= `Weapons: ${character.stats.gearproficiencies.split('Weapons: ')[1]}`
             .line-thin &nbsp;
             - if (character.class.spellslots[0].slots)
               h2.heading-secondary-smaller.ma-bt-sl Spellcasting 
@@ -275,8 +304,13 @@ block content
 
           #spells.hidden
             br
-            h2.heading-secondary.ma-bt-sl Spellcasting 
-            h2= `🧙‍♂️ Spell Ability Modifier: ${character.class.sam.toUpperCase()}`
+            .grid__two
+              h2.heading-secondary.ma-bt-sl Spellcasting 
+            - if (character.class.spellslots[0].slots)
+              h2= `🧙‍♂️ Spell Ability Modifier: ${character.class.sam.toUpperCase()}(${character.stats.samMod})`
+              .grid__two
+                h2= `👼 Spell Save DC: ${8+Number(character.stats.proficiencyBonus)+Number(character.stats.samMod)}`
+                h2= `✨ Spell attack Modifier: ${Number(character.stats.proficiencyBonus)+Number(character.stats.samMod)}`
             br
             table#spellTable
               tr.tableheader
@@ -284,10 +318,9 @@ block content
                 th(style='width:30%;') Cast Time
                 th(style='width:20%;') Range
                 th(style='width:20%;') Conc
-                //- th(style='width:50%;') Description
-                th(style='width:20%;') Level
+                th(style='width:10%;') Lvl
 
-              each spell in character.spells.sort(function(a,b){return a.level.toLowerCase()>b.level.toLowerCase() ? 1 : -1}).sort(function(a,b){return a.level.toLowerCase()>b.level.toLowerCase() ? 1 : -1}).sort(function(a,b){return a.level==="Cantrip"? -1 : 1})
+              each spell in character.spells.sort(function(a,b){return a.level<b.level ? -1 : a.level>b.level ? 1 : a.name<b.name ? -1 : a.name>b.name ? 1 : 0})
                 tr
                   td.thicc
                     a(href=`/spell/${spell._id}`)= spell.name
@@ -295,14 +328,14 @@ block content
                   td= spell.castingtime 
                   td= spell.range 
                   td= spell.concentration
-                  td= `${spell.level.split('level')[0]}${spell.level[3]==='-'?'lvl':''}`
+                  td= spell.level.slice(0, 1)
 
           #inventory.hidden
             br
             .grid__two
               h2.heading-secondary.ma-bt-sl Inventory 
-              h2.rightthisshit= `💰 Gold: ${character.inventory.Gold}`
-            table#characterTable
+              h6.rightthisshit= `💰 Gold: ${character.inventory.Gold}`
+            table#itemTable
               tr.tableheader
                 th(style='width:40%;') Item
                 th(style='width:50%;') Description
@@ -316,7 +349,8 @@ block content
 
           #features.hidden
             br
-            h2.heading-secondary.ma-bt-sl Features 
+            .grid__two
+              h2.heading-secondary.ma-bt-sl Features 
             table#featuresTable
               tr.tableheader
                 th(style='width:10%;') Lvl
@@ -331,7 +365,7 @@ block content
             each feature, name in character.class.features
               h2= name 
               each line in feature.split('/n')
-                p #{line}
+                p.justify #{line}
                 br
 
 

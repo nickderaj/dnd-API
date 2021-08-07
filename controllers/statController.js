@@ -36,7 +36,9 @@ exports.characterMods = (character) => {
 
   // Proficiency Bonus
   character.stats.proficiencyBonus = modifierPB(character.level);
-
+  character.stats.samMod = modifierCalc(
+    character[character.class.sam.toLowerCase()]
+  );
   const checkProficiency = (stat) => {
     if (character.proficiencies.includes(stat))
       return +character.stats.proficiencyBonus;
