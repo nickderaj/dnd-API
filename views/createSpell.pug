@@ -31,8 +31,11 @@ block content
               label.form__label(for='desc') 📜 Description
               textarea#desc.form__input(type='textarea', placeholder='A 10-foot-radius invisible sphere of antimagic surrounds you.', required)
             .form__group
+              label.form__label(for='higherlvl') ✨ Higher Level (Optional)
+              textarea#higherlvl.form__input(type='textarea', placeholder='At higher levels, you roll an extra 1d4 damage.')
+            .form__group
               label.form__label(for='level') ⭐ Level
-              input#level.form__input(type='text', placeholder='1-20', required)
+              input#level.form__input(type='text', placeholder='Cantrip, Racial, 1st-level, 3rd-level, etc.', required)
             .grid__two
               .form__group
                 label.form__label(for='range') 🌠 Range

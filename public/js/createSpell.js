@@ -4,6 +4,7 @@ import { hideAlert, showAlert } from './alert';
 export const createSpell = async (
   name,
   desc,
+  higherlvl,
   level,
   range,
   duration,
@@ -18,6 +19,7 @@ export const createSpell = async (
       data: {
         name,
         desc,
+        higherlevel: higherlvl,
         level,
         range,
         duration,

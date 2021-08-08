@@ -139,11 +139,26 @@ if (createCharacterForm) {
 }
 
 if (createSpellForm) {
+  const classTypes = (classTypes = [
+    'barbarian',
+    'bard',
+    'cleric',
+    'druid',
+    'fighter',
+    'monk',
+    'paladin',
+    'ranger',
+    'rogue',
+    'sorcerer',
+    'warlock',
+    'wizard',
+  ]);
   const classes = [];
   createSpellForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const spellname = document.getElementById('spellname').value;
     const desc = document.getElementById('desc').value;
+    const higherlvl = document.getElementById('higherlvl').value;
     const level = document.getElementById('level').value;
     const range = document.getElementById('range').value;
     const duration = document.getElementById('duration').value;
@@ -152,10 +167,14 @@ if (createSpellForm) {
     document.getElementById('concentration').checked
       ? (conc = 'yes')
       : (conc = 'no');
+    classTypes.forEach((el) =>
+      document.getElementById(el).checked ? classes.push(el) : ''
+    );
 
     createSpell(
       spellname,
       desc,
+      higherlvl,
       level,
       range,
       duration,
@@ -199,11 +218,13 @@ if (characterPage) {
   const spellsBtn = document.querySelector('.btn-spells');
   const inventoryBtn = document.querySelector('.btn-inventory');
   const featuresBtn = document.querySelector('.btn-features');
+  const skillsBtn = document.querySelector('.btn-skills');
   const overview = document.getElementById('overview');
   const spells = document.getElementById('spells');
   const features = document.getElementById('features');
   const inventory = document.getElementById('inventory');
-  const collection = [overview, spells, features, inventory];
+  const skills = document.getElementById('skillSection');
+  const collection = [overview, spells, features, inventory, skills];
 
   const sectionClick = function (button, section) {
     button.addEventListener('click', (e) => {
@@ -217,6 +238,7 @@ if (characterPage) {
   sectionClick(spellsBtn, spells);
   sectionClick(inventoryBtn, inventory);
   sectionClick(featuresBtn, features);
+  sectionClick(skillsBtn, skills);
 }
 
 if (addSpellPageForm) {

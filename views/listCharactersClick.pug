@@ -38,7 +38,7 @@ block content
     font-size: 15px; 
     }
     #itemTable th, #itemTable td {
-    text-align: right;
+    text-align: left;
     padding: 6px;
     }
     #itemTable th:first-child, #itemTable td:first-child {
@@ -201,18 +201,18 @@ block content
               +navItem('#', 'Monster List', '060-goblin')
       .user-view__content.character-content-page
         .grid__buttons
-          button.btn.btn--small.btn--red.btn-back
-            a(href=`/character-list`) 🦉 Back
+          //- button.btn.btn--small.btn--red.btn-back
+          //-   a(href=`/character-list`) 🦉 Back
           button.btn.btn--small.btn--green.btn-overview Overview
           button.btn.btn--small.btn--green.btn-spells Spells
+          button.btn.btn--small.btn--green.btn-skills Skills
           button.btn.btn--small.btn--green.btn-inventory Inventory 
           button.btn.btn--small.btn--green.btn-features Features
 
         .user-view__form-container
           #overview
             br
-            .grid__two
-              h2.heading-secondary.ma-bt-sl= `${character.name}, the ${character.race}`
+            h2.heading-secondary.ma-bt-sl= `${character.name}, the ${character.race}`
             br
             .grid__three
               h2 🧙‍♂️ Class 
@@ -244,6 +244,9 @@ block content
             .grid__two-long
               h2 👼 Saving Throws:
               p= `${character.class.savingthrows} (Add prof. bonus to saving throws)`
+              if (character.stats.resistances[0])
+              h2 🧬 Resistances:
+              p= character.stats.resistances
             .line-thin &nbsp;
             - var proficiencyTypes = ['acrobatics','animal  handling','arcana','athletics','deception','history','insight','intimidation','investigation','medicine','nature','perception','performance','persuasion','religion','sleight of hand','stealth','survival']
             h2.heading-secondary-smaller.ma-bt-sl Proficiencies
@@ -330,6 +333,20 @@ block content
                   td= spell.concentration
                   td= spell.level.slice(0, 1)
 
+          #skillSection.hidden
+            br
+            .grid__two
+              h2.heading-secondary.ma-bt-sl Skills 
+            table#itemTable
+              tr.tableheader
+                th(style='width:33.3%;') Skill
+                th(style='width:50%;') Description
+              //- each item, name in character.inventory
+              //-   tr
+              //-     td.thicc= name
+              //-     td= item.split('_')[0]
+              //-     td= item.split('_')[1]
+          
           #inventory.hidden
             br
             .grid__two
