@@ -341,12 +341,14 @@ block content
               tr.tableheader
                 th(style='width:33.3%;') Skill
                 th(style='width:50%;') Description
-              //- each item, name in character.inventory
-              //-   tr
-              //-     td.thicc= name
-              //-     td= item.split('_')[0]
-              //-     td= item.split('_')[1]
-          
+              if(character.stats.Skills)
+                each skill, name in character.stats.Skills
+                  tr
+                    td.thicc= name
+                    td
+                      each thing in skill.split('/n')
+                        p= thing
+            
           #inventory.hidden
             br
             .grid__two

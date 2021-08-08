@@ -8,7 +8,9 @@ const { characterMods } = require('./statController');
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   const characters = await Character.find();
-  res.status(200).render('overview', { title: 'Overview', characters });
+  res
+    .status(200)
+    .render('overview', { title: 'Dungeons & Dragons', characters });
 });
 
 exports.getOtherCharacters = catchAsync(async (req, res, next) => {
@@ -50,7 +52,9 @@ exports.getSpellListCurrent = catchAsync(async (req, res, next) => {
     return next(new AppError('No spell found with that ID', 404));
   }
 
-  res.status(200).render('listSpellsClick', { title: spell.name, spell });
+  res
+    .status(200)
+    .render('listSpellsClick', { title: `Spell | ${spell.name}`, spell });
 });
 
 exports.getCharacterListCurrent = catchAsync(async (req, res, next) => {
