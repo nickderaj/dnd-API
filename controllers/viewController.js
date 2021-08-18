@@ -102,6 +102,20 @@ exports.getCharacterForm = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.spellsRemainingForm = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Character.find().sort('npc'), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const characters = await features.query;
+  res.status(200).render('spellsRemaining', {
+    title: 'Spell Slots Remaining',
+    characters,
+    query: req.query,
+  });
+});
+
 exports.getSpellForm = catchAsync(async (req, res, next) => {
   res.status(200).render('createSpell', {
     title: 'Create New Spell',

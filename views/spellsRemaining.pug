@@ -1,0 +1,101 @@
+extends base
+include _navItem
+
+block content 
+  style.
+    #characterInput {
+    width: 100%;
+    font-size: 16px;
+    padding: 6px 10px 6px 20px;
+    border: 1px solid #ddd; 
+    margin-bottom: 12px;
+    }
+    #characterTable {
+    border-collapse: collapse;
+    width: 100%; 
+    border: 1px solid #ddd;
+    font-size: 15px; 
+    }
+    #characterTable th, #characterTable td {
+    text-align: center;
+    padding: 6px;
+    }
+    #characterTable tr a {
+    text-decoration: none;
+    color: inherit;
+    }
+    #characterTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+    #characterTable tr.tableheader {
+    background: linear-gradient(to right bottom,#be3725,#af260d);
+    color: white;
+    }
+  main.main
+  .user-view
+    nav.user-view__menu
+      ul.side-nav
+        +navItem('/me', 'My Account', '025-parchment')
+        +navItem('/character-list', 'Characters', '059-warrior')
+        +navItem('/spell-list', 'Spells', '016-magician hat')
+        +navItem('#', 'Logout', '032-skull', 'side-nav--logout')
+
+      - if (user.role==='admin')
+        .admin-nav
+          h5.admin-nav__heading Admin
+          ul.side-nav
+            +navItem('/create-character', 'Create Character', '010-helmet')
+            +navItem('/create-spell', 'Create Spell', '009-sceptre')
+            +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician')
+            +navItem('#', 'Monster List', '060-goblin')
+            +navItem('/spellsremaining', 'Spells Remaining', '043-thunder', 'side-nav--active')
+
+    .user-view__content
+      .user-view__form-container
+        h2.heading-secondary.ma-bt-md Spell Slots Remaining
+        br
+        each character in characters
+          h2.heading-secondary-smaller.ma-bt-sl= character.name
+          br
+          - if (character.class.spellslots[0].slots)
+            h2 Spell Slots 
+            table#characterTable
+              tr.tableheader
+                th(style='width:10%;') Lvl
+                th(style='width:9%;') C
+                th(style='width:9%;') 1st
+                th(style='width:9%;') 2nd
+                th(style='width:9%;') 3rd
+                th(style='width:9%;') 4th
+                th(style='width:9%;') 5th
+                th(style='width:9%;') 6th
+                th(style='width:9%;') 7th
+                th(style='width:9%;') 8th
+                th(style='width:9%;') 9th
+              tr
+                td.thicc= character.level
+                td= character.class.spellslots[0].cantrips[character.level - 1]
+                              select#character.form__input(type='text', required)
+                each character in characters
+                  option= `${character._id}: ${character.name}`
+                td= character.class.spellslots[0].slots["1st"][character.level - 1]
+                td= character.class.spellslots[0].slots["2nd"][character.level - 1]
+                td= character.class.spellslots[0].slots["3rd"][character.level - 1]
+                td= character.class.spellslots[0].slots["4th"][character.level - 1]
+                td= character.class.spellslots[0].slots["5th"][character.level - 1]
+                td= character.class.spellslots[0].slots["6th"][character.level - 1]
+                td= character.class.spellslots[0].slots["7th"][character.level - 1]
+                td= character.class.spellslots[0].slots["8th"][character.level - 1]
+                td= character.class.spellslots[0].slots["9th"][character.level - 1]
+          - if(character.class.spellslots[0].rages[1])
+            h2 Rages 
+            table#characterTable
+              tr.tableheader
+                th(style='width:20%;') Lvl
+                th(style='width:40%;') Rages
+                th(style='width:40%;') Rage Damage
+              tr
+                td.thicc= character.level
+                td= character.class.spellslots[0].rages[character.level - 1]
+                td= character.class.spellslots[0].ragedamage[character.level - 1]
+          br

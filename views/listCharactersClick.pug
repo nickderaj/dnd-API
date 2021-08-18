@@ -199,6 +199,7 @@ block content
               +navItem('/create-spell', 'Create Spell', '009-sceptre')
               +navItem('/add-spell-to-character', 'Add Spell to Char', '058-magician')
               +navItem('#', 'Monster List', '060-goblin')
+              +navItem('/spellsremaining', 'Spells Remaining', '043-thunder')
       .user-view__content.character-content-page
         .grid__buttons
           //- button.btn.btn--small.btn--red.btn-back
@@ -258,11 +259,19 @@ block content
             h2 Equipment Proficiencies 
             p= character.stats.gearproficiencies.split('Weapons: ')[0]
             p= `Weapons: ${character.stats.gearproficiencies.split('Weapons: ')[1]}`
-            .line-thin &nbsp;
+
+          #spells.hidden
+            br
+            .grid__two
+              h2.heading-secondary.ma-bt-sl Spellcasting 
             - if (character.class.spellslots[0].slots)
-              h2.heading-secondary-smaller.ma-bt-sl Spellcasting 
-              h2= `🧙‍♂️ Spell Ability Modifier: ${character.class.sam.toUpperCase()}`
-              br
+              h2= `🧙‍♂️ Spell Ability Modifier: ${character.class.sam.toUpperCase()}(${character.stats.samMod})`
+              .grid__two
+                h2= `👼 Spell Save DC: ${8+Number(character.stats.proficiencyBonus)+Number(character.stats.samMod)}`
+                h2= `✨ Spell attack Modifier: ${Number(character.stats.proficiencyBonus)+Number(character.stats.samMod)}`
+            br
+            - if (character.class.spellslots[0].slots)
+              h2.heading-secondary-smaller.ma-bt-sl Spell Slots 
               table#characterTable
                 tr.tableheader
                   th(style='width:10%;') Lvl
@@ -290,8 +299,6 @@ block content
                   td= character.class.spellslots[0].slots["9th"][character.level - 1]
             - if(character.class.spellslots[0].rages[1])
               h2.heading-secondary-smaller.ma-bt-sl Rages 
-              h2= `😡 Current Rage Damage: ${character.class.spellslots[0].ragedamage[character.level - 1]}`
-              br
               table#characterTable
                 tr.tableheader
                   th(style='width:20%;') Lvl
@@ -301,20 +308,13 @@ block content
                   td.thicc= character.level
                   td= character.class.spellslots[0].rages[character.level - 1]
                   td= character.class.spellslots[0].ragedamage[character.level - 1]
+              br
+              h2= `😡 Current Rage Damage: ${character.class.spellslots[0].ragedamage[character.level - 1]}`
+              br
             - if(character.class.spellslots[0].invocations[1])
               br
-              h2= `😈 Number of Invocations: ${character.class.spellslots[0].invocations[character.level - 1]}`      
-
-          #spells.hidden
-            br
-            .grid__two
-              h2.heading-secondary.ma-bt-sl Spellcasting 
-            - if (character.class.spellslots[0].slots)
-              h2= `🧙‍♂️ Spell Ability Modifier: ${character.class.sam.toUpperCase()}(${character.stats.samMod})`
-              .grid__two
-                h2= `👼 Spell Save DC: ${8+Number(character.stats.proficiencyBonus)+Number(character.stats.samMod)}`
-                h2= `✨ Spell attack Modifier: ${Number(character.stats.proficiencyBonus)+Number(character.stats.samMod)}`
-            br
+              h2= `😈 Number of Invocations: ${character.class.spellslots[0].invocations[character.level - 1]}`    
+              br
             table#spellTable
               tr.tableheader
                 th(style='width:40%;') Spell

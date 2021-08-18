@@ -32,7 +32,12 @@ router.get(
   authController.restrictTo('admin'),
   viewController.addSpellToCharacterForm
 );
-
+router.get(
+  '/spellsremaining',
+  authController.protect,
+  authController.restrictTo('admin'),
+  viewController.spellsRemainingForm
+);
 router.get(
   '/spell-list?:id',
   authController.protect,
