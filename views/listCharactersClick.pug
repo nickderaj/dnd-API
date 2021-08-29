@@ -259,6 +259,25 @@ block content
             h2 Equipment Proficiencies 
             p= character.stats.gearproficiencies.split('Weapons: ')[0]
             p= `Weapons: ${character.stats.gearproficiencies.split('Weapons: ')[1]}`
+            .line-thin &nbsp;
+            - if(character.class.spellslots[0].rages[1])
+              h2.heading-secondary-smaller.ma-bt-sl Rages 
+              table#characterTable
+                tr.tableheader
+                  th(style='width:20%;') Lvl
+                  th(style='width:40%;') Rages
+                  th(style='width:40%;') Rage Damage
+                tr
+                  td.thicc= character.level
+                  td= character.class.spellslots[0].rages[character.level - 1]
+                  td= character.class.spellslots[0].ragedamage[character.level - 1]
+              br
+              h2= `😡 Current Rage Damage: ${character.class.spellslots[0].ragedamage[character.level - 1]}`
+              br
+            - if(character.class.spellslots[0].invocations[1])
+              br
+              h2= `😈 Number of Invocations: ${character.class.spellslots[0].invocations[character.level - 1]}`    
+              br
 
           #spells.hidden
             br
@@ -297,24 +316,7 @@ block content
                   td= character.class.spellslots[0].slots["7th"][character.level - 1]
                   td= character.class.spellslots[0].slots["8th"][character.level - 1]
                   td= character.class.spellslots[0].slots["9th"][character.level - 1]
-            - if(character.class.spellslots[0].rages[1])
-              h2.heading-secondary-smaller.ma-bt-sl Rages 
-              table#characterTable
-                tr.tableheader
-                  th(style='width:20%;') Lvl
-                  th(style='width:40%;') Rages
-                  th(style='width:40%;') Rage Damage
-                tr
-                  td.thicc= character.level
-                  td= character.class.spellslots[0].rages[character.level - 1]
-                  td= character.class.spellslots[0].ragedamage[character.level - 1]
-              br
-              h2= `😡 Current Rage Damage: ${character.class.spellslots[0].ragedamage[character.level - 1]}`
-              br
-            - if(character.class.spellslots[0].invocations[1])
-              br
-              h2= `😈 Number of Invocations: ${character.class.spellslots[0].invocations[character.level - 1]}`    
-              br
+            br   
             table#spellTable
               tr.tableheader
                 th(style='width:40%;') Spell
