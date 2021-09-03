@@ -40,9 +40,15 @@ exports.characterMods = (character) => {
     character[character.class.sam.toLowerCase()]
   );
   const checkProficiency = (stat) => {
-    if (character.proficiencies.includes(stat))
+    if (character.class.name == "Bard"){
+      if (character.proficiencies.includes(stat))
       return +character.stats.proficiencyBonus;
-    return 0;
+      else {return Math.floor(+(character.stats.proficiencyBonus/2))}
+    } else{    
+      if (character.proficiencies.includes(stat))
+      return +character.stats.proficiencyBonus;
+    return 0;}
+
   };
   // Proficiency Mods
   character.stats.acrobatics =
