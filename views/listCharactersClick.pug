@@ -245,15 +245,18 @@ block content
             .grid__two-long
               h2 👼 Saving Throws:
               p= `${character.class.savingthrows} (Add prof. bonus to saving throws)`
-              if (character.stats.resistances[0])
-              h2 🧬 Resistances:
-              p= character.stats.resistances
+              - if (character.stats.resistances[0])
+                h2 🧬 Resistances:
+                p= character.stats.resistances
             .line-thin &nbsp;
             - var proficiencyTypes = ['acrobatics','animal  handling','arcana','athletics','deception','history','insight','intimidation','investigation','medicine','nature','perception','performance','persuasion','religion','sleight of hand','stealth','survival']
             h2.heading-secondary-smaller.ma-bt-sl Proficiencies
             .grid__four
               each proficiency in proficiencyTypes 
-                h2.rightthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
+                if (character.proficiencies.includes(proficiency))
+                  h2.rightthisshit= `✓ ${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
+                else
+                  h2.rightthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
                 p.centerthisshit= character.stats[proficiency.split(' ').join('')] > 0 ? `+${character.stats[proficiency.split(' ').join('')]}` : character.stats[proficiency.split(' ').join('')]
             br
             h2 Equipment Proficiencies 
