@@ -79,7 +79,7 @@ character.stats.perception =
 character.stats.performance =
   +character.stats.charismaMod + 2 * checkProficiency('performance');
 character.stats.persuasion =
-  +character.stats.charismaMod + 2 * ~checkProficiency('persuasion');
+  +character.stats.charismaMod + 2 * checkProficiency('persuasion');
 character.stats.religion =
   +character.stats.intelligenceMod + checkProficiency('religion');
 character.stats.sleightofhand =
