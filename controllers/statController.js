@@ -51,6 +51,45 @@ exports.characterMods = (character) => {
 
   };
   // Proficiency Mods
+  if (character.name = "Delilelf"){
+  character.stats.acrobatics =
+  +character.stats.dexterityMod + checkProficiency('acrobatics');
+character.stats.animalhandling =
+  +character.stats.wisdomMod + checkProficiency('animal handling');
+character.stats.arcana =
+  +character.stats.intelligenceMod + checkProficiency('arcana');
+character.stats.athletics =
+  +character.stats.strengthMod + checkProficiency('athletics');
+character.stats.deception =
+  +character.stats.charismaMod + checkProficiency('deception');
+character.stats.history =
+  +character.stats.intelligenceMod + checkProficiency('history');
+character.stats.insight =
+  +character.stats.wisdomMod + checkProficiency('insight');
+character.stats.intimidation =
+  +character.stats.charismaMod + checkProficiency('intimidation');
+character.stats.investigation =
+  +character.stats.intelligenceMod + checkProficiency('investigation');
+character.stats.medicine =
+  +character.stats.wisdomMod + checkProficiency('medicine');
+character.stats.nature =
+  +character.stats.intelligenceMod + checkProficiency('nature');
+character.stats.perception =
+  +character.stats.wisdomMod + checkProficiency('perception');
+character.stats.performance =
+  +character.stats.charismaMod + 2 * checkProficiency('performance');
+character.stats.persuasion =
+  +character.stats.charismaMod + 2 * checkProficiency('persuasion');
+character.stats.religion =
+  +character.stats.intelligenceMod + checkProficiency('religion');
+character.stats.sleightofhand =
+  +character.stats.dexterityMod + checkProficiency('sleight of hand');
+character.stats.stealth =
+  +character.stats.dexterityMod + checkProficiency('stealth');
+character.stats.survival =
+  +character.stats.wisdomMod + checkProficiency('survival');
+return character;
+  } else {
   character.stats.acrobatics =
     +character.stats.dexterityMod + checkProficiency('acrobatics');
   character.stats.animalhandling =
@@ -88,4 +127,5 @@ exports.characterMods = (character) => {
   character.stats.survival =
     +character.stats.wisdomMod + checkProficiency('survival');
   return character;
+}
 };
