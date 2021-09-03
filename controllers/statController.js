@@ -51,7 +51,7 @@ exports.characterMods = (character) => {
 
   };
   // Proficiency Mods
-  if (character.name = "Delilelf"){
+  if (character.name === "Delilelf"){
   character.stats.acrobatics =
   +character.stats.dexterityMod + checkProficiency('acrobatics');
 character.stats.animalhandling =
@@ -79,7 +79,7 @@ character.stats.perception =
 character.stats.performance =
   +character.stats.charismaMod + 2 * checkProficiency('performance');
 character.stats.persuasion =
-  +character.stats.charismaMod + 2 * checkProficiency('persuasion');
+  +character.stats.charismaMod + 2 * ~checkProficiency('persuasion');
 character.stats.religion =
   +character.stats.intelligenceMod + checkProficiency('religion');
 character.stats.sleightofhand =
