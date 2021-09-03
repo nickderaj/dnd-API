@@ -254,7 +254,7 @@ block content
             .grid__four
               each proficiency in proficiencyTypes 
                 if (character.proficiencies.includes(proficiency))
-                  h2.rightthisshit= `✓ ${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
+                  h2.rightthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)} ✓`
                 else
                   h2.rightthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
                 p.centerthisshit= character.stats[proficiency.split(' ').join('')] > 0 ? `+${character.stats[proficiency.split(' ').join('')]}` : character.stats[proficiency.split(' ').join('')]
