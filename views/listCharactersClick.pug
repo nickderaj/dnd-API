@@ -253,11 +253,11 @@ block content
             h2.heading-secondary-smaller.ma-bt-sl Proficiencies
             .grid__four
               each proficiency in proficiencyTypes 
+                h2.centerthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
                 if (character.proficiencies.includes(proficiency))
-                  h2.rightthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)} ✓`
+                  p.leftthisshit= character.stats[proficiency.split(' ').join('')] > 0 ? `+${character.stats[proficiency.split(' ').join('')]} ✓` : `${character.stats[proficiency.split(' ').join('')]} ✓`
                 else
-                  h2.rightthisshit= `${proficiency[0].toUpperCase()}${proficiency.slice(1)}`
-                p.centerthisshit= character.stats[proficiency.split(' ').join('')] > 0 ? `+${character.stats[proficiency.split(' ').join('')]}` : character.stats[proficiency.split(' ').join('')]
+                  p.leftthisshit= character.stats[proficiency.split(' ').join('')] > 0 ? `+${character.stats[proficiency.split(' ').join('')]}` : character.stats[proficiency.split(' ').join('')]
             br
             h2 Equipment Proficiencies 
             p= character.stats.gearproficiencies.split('Weapons: ')[0]
